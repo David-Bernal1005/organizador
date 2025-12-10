@@ -1,0 +1,71 @@
+/* src/components/ListaTareas.css */
+
+.lista-tareas-container {
+  background: white;
+}
+
+.lista-tareas-container h2 {
+  color: var(--gray-800);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 1rem;
+}
+
+.controles-filtro {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filtro {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--gray-300);
+  background-color: white;
+  color: var(--gray-700);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.filtro:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.filtro.activo {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.tareas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.sin-tareas {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--gray-500);
+  background-color: var(--gray-50);
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--gray-300);
+}
+
+.sin-tareas p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.cargando {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-500);
+  font-size: 1.1rem;
+}

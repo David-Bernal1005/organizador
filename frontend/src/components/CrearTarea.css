@@ -1,0 +1,73 @@
+/* src/components/CrearTarea.css */
+
+.crear-tarea-container {
+  background: white;
+}
+
+.crear-tarea-container h2 {
+  color: var(--gray-800);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 1rem;
+}
+
+.formulario-tarea {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.grupo-formulario label {
+  font-weight: 600;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.grupo-formulario input,
+.grupo-formulario textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.grupo-formulario input:disabled,
+.grupo-formulario textarea:disabled {
+  background-color: var(--gray-50);
+  color: var(--gray-500);
+  cursor: not-allowed;
+}
+
+.grupo-formulario small {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  text-align: right;
+}
+
+.grupo-formulario textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formulario-tarea > .boton-primario {
+  align-self: flex-start;
+  margin-top: 1rem;
+}

@@ -1,8 +1,8 @@
-"""Tablas
+"""actualizar modelos
 
-Revision ID: f5403fc74cb5
+Revision ID: 9d4fddb2e96e
 Revises: 
-Create Date: 2025-12-09 21:21:12.434049
+Create Date: 2025-12-10 07:27:47.148040
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'f5403fc74cb5'
+revision: str = '9d4fddb2e96e'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

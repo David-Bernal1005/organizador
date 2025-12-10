@@ -1,13 +1,13 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 class UsuarioCrear(BaseModel):
     nombre: str
     correo: EmailStr
-    contraseña: str
+    contraseña: str = Field(..., min_length=6, max_length=72, description="Contraseña (6-72 caracteres, límite de bcrypt)")
 
 class UsuarioLogin(BaseModel):
     correo: EmailStr
-    contraseña: str
+    contraseña: str = Field(..., max_length=72)
 
 class UsuarioRespuesta(BaseModel):
     id: int
@@ -15,4 +15,4 @@ class UsuarioRespuesta(BaseModel):
     correo: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
