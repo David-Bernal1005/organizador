@@ -1,5 +1,5 @@
 // src/services/authService.js
-const API_BASE = '/api/auth';
+const API_BASE = `${import.meta.env.VITE_API_URL || '/api'}/auth`;
 const STORAGE_KEY = 'usuario';
 
 export const register = async (nombre, correo, contraseña) => {

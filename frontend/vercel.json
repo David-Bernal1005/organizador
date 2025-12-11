@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "env": [
+    {
+      "key": "VITE_API_URL",
+      "value": "https://api-organizador-tareas.onrender.com/api"
+    }
+  ]
+}
