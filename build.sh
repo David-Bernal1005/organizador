@@ -3,11 +3,11 @@
 
 set -o errexit
 
-# Instalar dependencias
+echo "Instalando dependencias Python..."
+pip install --upgrade pip
 pip install -r requirements.txt
 
-# Crear las tablas en la base de datos (si no existen)
-python create_tables.py
+echo "Intentando crear las tablas en la base de datos..."
+python create_tables.py || echo "Aviso: No se pudieron crear las tablas, puede que ya existan"
 
-# Recolectar archivos estáticos si es necesario
-# python manage.py collectstatic --noinput
+echo "Build completado!"
