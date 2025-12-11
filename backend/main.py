@@ -31,9 +31,9 @@ if "onrender.com" in os.getenv("DATABASE_URL", ""):
         # Así que permitimos el patrón completo en la URL con regex
     ])
 
-# Usar allow_origin_regex para aceptar dinámicamente previews de Vercel
-# Patrón: https://organizador-*.vercel.app o https://cualquier-cosa.vercel.app
-ALLOW_ORIGIN_REGEX = r"https://.*\.vercel\.app$|https://localhost.*|http://127\.0\.0\.1.*"
+# Usar allow_origin_regex para aceptar dinámicamente previews de Vercel y servicios en Render
+# Patrón: https://organizador-*.vercel.app, https://cualquier-cosa.onrender.com, localhost
+ALLOW_ORIGIN_REGEX = r"https://.*\.vercel\.app$|https://.*\.onrender\.com$|https://localhost.*|http://127\.0\.0\.1.*"
 
 app.add_middleware(
     CORSMiddleware,
