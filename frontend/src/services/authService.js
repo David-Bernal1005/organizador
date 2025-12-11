@@ -6,7 +6,7 @@ export const register = async (nombre, correo, contraseña) => {
   const res = await fetch(`${API_BASE}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nombre, correo, contraseña }),
+    body: JSON.stringify({ nombre, correo, contrasena: contraseña }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
@@ -21,7 +21,7 @@ export const login = async (correo, contraseña) => {
   const res = await fetch(`${API_BASE}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ correo, contraseña }),
+    body: JSON.stringify({ correo, contrasena: contraseña }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));

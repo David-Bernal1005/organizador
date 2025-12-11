@@ -20,7 +20,7 @@ def registrar_usuario(datos: UsuarioCrear, db: Session = Depends(get_db)):
     usuario = Usuario(
         nombre=datos.nombre,
         correo=datos.correo,
-        contraseña=encriptar_contraseña(datos.contraseña)
+        contraseña=encriptar_contraseña(datos.contrasena)
     )
 
     db.add(usuario)
@@ -38,7 +38,7 @@ def login(datos: UsuarioLogin, db: Session = Depends(get_db)):
     if not usuario:
         raise HTTPException(status_code=400, detail="Credenciales incorrectas")
 
-    if not verificar_contraseña(datos.contraseña, usuario.contraseña):
+    if not verificar_contraseña(datos.contrasena, usuario.contraseña):
         raise HTTPException(status_code=400, detail="Credenciales incorrectas")
 
     return usuario
