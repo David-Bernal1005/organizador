@@ -12,7 +12,8 @@ app = FastAPI(
     description="API para gestionar tareas y usuarios"
 )
 
-# Configurar CORS con múltiples orígenes permitidos
+# Configurar CORS - Leer orígenes permitidos de variable de entorno
+# Por defecto permite localhost + todo *.vercel.app
 ALLOWED_ORIGINS_STR = os.getenv(
     "ALLOWED_ORIGINS",
     "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000"
@@ -20,23 +21,24 @@ ALLOWED_ORIGINS_STR = os.getenv(
 
 ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS_STR.split(",") if origin.strip()]
 
-# En producción, agregar orígenes de Vercel
+# En producción (Render), añadir dominios Vercel genéricos
 if "onrender.com" in os.getenv("DATABASE_URL", ""):
-    VERCEL_ORIGINS = [
+    # Estos son patrones comunes de Vercel
+    ALLOWED_ORIGINS.extend([
         "https://organizador.vercel.app",
         "https://organizador-cyan.vercel.app",
-    ]
-    ALLOWED_ORIGINS.extend(VERCEL_ORIGINS)
+        # Los preview deployments son dinámicos (ej. organizador-gp4lcevur-...vercel.app)
+        # Así que permitimos el patrón completo en la URL con regex
+    ])
 
-# Soporte para aceptar dinámicamente orígenes que coincidan con un patrón (útil para
-# preview deployments de Vercel). Se puede controlar con la variable de entorno
-# `ALLOWED_ORIGINS_REGEX`. Por defecto se permite cualquier subdominio de vercel.app
-ALLOWED_ORIGINS_REGEX = os.getenv("ALLOWED_ORIGINS_REGEX", r"https://.*\\.vercel\\.app$")
+# Usar allow_origin_regex para aceptar dinámicamente previews de Vercel
+# Patrón: https://organizador-*.vercel.app o https://cualquier-cosa.vercel.app
+ALLOW_ORIGIN_REGEX = r"https://.*\.vercel\.app$|https://localhost.*|http://127\.0\.0\.1.*"
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
-    allow_origin_regex=ALLOWED_ORIGINS_REGEX,
+    allow_origins=ALLOWED_ORIGINS,  # Orígenes explícitos
+    allow_origin_regex=ALLOW_ORIGIN_REGEX,  # Patrón para previews dinámicos
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,13 +47,18 @@ app.add_middleware(
 # Endpoints básicos
 @app.get("/")
 def inicio():
-    return {"mensaje": "API funcionando", "version": "1.0.0"}
+    return {
+        "mensaje": "API funcionando",
+        "version": "1.0.0",
+        "docs": "/docs"
+    }
 
 @app.get("/health")
 def health_check():
     return {
         "status": "ok",
-        "allowed_origins": ALLOWED_ORIGINS
+        "allowed_origins": ALLOWED_ORIGINS,
+        "allow_origin_regex": ALLOW_ORIGIN_REGEX
     }
 
 # Importar routers DESPUÉS de crear la app
@@ -61,6 +68,7 @@ try:
     
     app.include_router(auth_router, prefix="/api")
     app.include_router(tarea_router, prefix="/api")
+    print("✓ Routers cargados exitosamente")
 except Exception as e:
     print(f"⚠️  Advertencia: No se pudieron cargar los routers: {e}")
     print("La API estará disponible pero sin los endpoints de auth y tareas")
