@@ -28,9 +28,15 @@ if "onrender.com" in os.getenv("DATABASE_URL", ""):
     ]
     ALLOWED_ORIGINS.extend(VERCEL_ORIGINS)
 
+# Soporte para aceptar dinámicamente orígenes que coincidan con un patrón (útil para
+# preview deployments de Vercel). Se puede controlar con la variable de entorno
+# `ALLOWED_ORIGINS_REGEX`. Por defecto se permite cualquier subdominio de vercel.app
+ALLOWED_ORIGINS_REGEX = os.getenv("ALLOWED_ORIGINS_REGEX", r"https://.*\\.vercel\\.app$")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=ALLOWED_ORIGINS_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
