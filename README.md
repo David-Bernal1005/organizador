@@ -769,7 +769,7 @@ taskkill /PID <PID> /F
 
 ## 📞 Contacto & Créditos
 
-**Desarrollador**: David Bernal  
+**Desarrollador**: David Bernal,Paola Navas  
 **Repositorio**: https://github.com/David-Bernal1005/organizador  
 **Fecha**: Diciembre 2025
 
