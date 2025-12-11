@@ -13,7 +13,8 @@ services:
     buildCommand: bash ./build.sh
 
     # Comando de inicio - IMPORTANTE: usar 0.0.0.0, no localhost
-    startCommand: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    # El módulo correcto es `backend.main:app` (archivo `backend/main.py`)
+    startCommand: python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT --proxy-headers
     
     # Healthcheck
     healthCheckPath: /health
