@@ -9,25 +9,23 @@ services:
     region: oregon
     plan: free
     
-    # Variables de entorno
-    envVars:
-      - key: DATABASE_URL
-        scope: build
-        value: mysql+pymysql://root:YlsazmheiumkUvbntpcGzGzXhDnxllTb@switchyard.proxy.rlwy.net:38309/railway
-      - key: SECRET_KEY
-        scope: build
-        value: your_secret_key_change_in_production
-
     # Comando de construcción
     buildCommand: bash ./build.sh
 
-    # Comando de inicio
-    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
-
-    # Archivos a mantener en el repositorio
+    # Comando de inicio - IMPORTANTE: usar 0.0.0.0, no localhost
+    startCommand: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    
+    # Healthcheck
+    healthCheckPath: /health
+    
+    # Archivos a monitorear
     buildFilter:
       paths:
         - backend/**
+        - requirements.txt
+        - build.sh
+        - create_tables.py
+
         - requirements.txt
         - create_tables.py
         - build.sh

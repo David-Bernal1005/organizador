@@ -6,7 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 # Asegurar que el módulo backend está en el path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-app = FastAPI(title="API Organizador de Tareas", version="1.0.0")
+app = FastAPI(
+    title="API Organizador de Tareas",
+    version="1.0.0",
+    description="API para gestionar tareas y usuarios"
+)
 
 # Configurar CORS con múltiples orígenes permitidos
 ALLOWED_ORIGINS_STR = os.getenv(
@@ -35,7 +39,7 @@ app.add_middleware(
 # Endpoints básicos
 @app.get("/")
 def inicio():
-    return {"mensaje": "API funcionando"}
+    return {"mensaje": "API funcionando", "version": "1.0.0"}
 
 @app.get("/health")
 def health_check():
@@ -51,6 +55,9 @@ try:
     
     app.include_router(auth_router, prefix="/api")
     app.include_router(tarea_router, prefix="/api")
-except ImportError as e:
+except Exception as e:
     print(f"⚠️  Advertencia: No se pudieron cargar los routers: {e}")
     print("La API estará disponible pero sin los endpoints de auth y tareas")
+    import traceback
+    traceback.print_exc()
+
