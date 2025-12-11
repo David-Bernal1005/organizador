@@ -6,7 +6,7 @@ uvicorn[standard]
 
 # --- Base de datos ---
 SQLAlchemy
-psycopg2-binary
+pymysql
 
 # --- Migraciones ---
 alembic
