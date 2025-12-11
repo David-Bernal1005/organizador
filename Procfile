@@ -1,2 +1,2 @@
-# Procfile - Comando para Render
-web: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT --workers 2
+# Procfile - Comando para iniciar en Render
+web: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
