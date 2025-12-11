@@ -12,7 +12,7 @@ pymysql
 alembic
 
 # --- Validaciones ---
-pydantic
+pydantic[email]
 pydantic-settings
 
 # --- Seguridad y JWT ---
